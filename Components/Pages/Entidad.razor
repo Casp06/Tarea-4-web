@@ -1,0 +1,35 @@
+@page "/entidad/{tipo}"
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+@inject SerieContext Sc
+
+<h3>Entidad @Tipo</h3>
+
+<div class="text-end">
+    <button type="button" @onclick="AgregarNuevo" class="btn btn-primary">Agregar</button>
+</div>
+
+<p>Agregados</p>
+
+<table>
+
+</table>
+@lista.Count
+
+@code{
+    [Parameter]
+    public string Tipo {get; set; } = "";
+
+    List<SeriePeliculaLibro> lista = new List<SeriePeliculaLibro>();
+
+    private void AgregarNuevo(){
+        Nav.NavigateTo($"entidad/{Tipo}/editar");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender){
+        if(firstRender){
+            lista =  Sc.SeriePeliculaLibros.ToList();
+            StateHasChanged();
+        }
+    }
+}
