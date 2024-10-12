@@ -11,14 +11,56 @@
 
 <p>Agregados</p>
 
-<table>
-
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Pais</th>
+            <th>Idioma</th>
+            <th>Protagonistas</th>
+            <th>Foto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in lista){
+        <tr>
+            <td>@item.Nombre</td>
+            <td>@item.Pais</td>
+            <td>@item.Idioma</td>
+            <td>@item.Personajes.Count</td>
+            <td><img src="@item.FotoUrl" alt="@item.Nombre" width="100"></td>
+            <td><button class="btn btn-success" @onclick="()=>editar(item.Id)">Editar</button></td>
+        </tr>   
+        }
+    </tbody>
 </table>
-@lista.Count
+
+
+
+
 
 @code{
     [Parameter]
     public string Tipo {get; set; } = "";
+
+    TipoEntidad tipoEntidad = TipoEntidad.Libro;
+
+    protected override async Task OnParametersSetAsync(){
+        switch (Tipo){
+            case "libros":
+                tipoEntidad = TipoEntidad.Libro;
+                break;
+            case "peliculas":
+                tipoEntidad = TipoEntidad.Pelicula;
+                break;
+            case "series":
+                tipoEntidad = TipoEntidad.Serie;
+                break;
+            default:
+                Nav.NavigateTo("/");
+                break;
+        }
+    }
 
     List<SeriePeliculaLibro> lista = new List<SeriePeliculaLibro>();
 
@@ -26,9 +68,13 @@
         Nav.NavigateTo($"entidad/{Tipo}/editar");
     }
 
+    private void editar(int id){
+        Nav.NavigateTo($"entidad/{Tipo}/editar/{id}");
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender){
         if(firstRender){
-            lista =  Sc.SeriePeliculaLibros.ToList();
+            lista =  Sc.SeriePeliculaLibros.Where(x => x.Tipo == tipoEntidad).ToList();
             StateHasChanged();
         }
     }

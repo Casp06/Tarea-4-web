@@ -130,3 +130,4 @@ C:\C#\tarea4\obj\Debug\net8.0\refint\tarea4.dll
 C:\C#\tarea4\obj\Debug\net8.0\tarea4.pdb
 C:\C#\tarea4\obj\Debug\net8.0\tarea4.genruntimeconfig.cache
 C:\C#\tarea4\obj\Debug\net8.0\ref\tarea4.dll
+C:\C#\tarea4\obj\Debug\net8.0\tarea4.sourcelink.json

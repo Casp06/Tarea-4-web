@@ -14,7 +14,7 @@ public class SeriePeliculaLibro{
     public string Resumen {get; set;} = "";
 
 //Relacion con los personajes
-public List<Personaje> Personajes {get; set; } = null!;
+public List<Personaje> Personajes {get; set; } = new List<Personaje>();
 
 }
 
